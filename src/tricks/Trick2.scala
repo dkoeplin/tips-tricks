@@ -50,7 +50,7 @@ object Trick2 extends ArithmeticNodes {
       val x: PartialFunction[Any, Int] = {case x: Int if x < 3 => x}
     }
 
-    ?{re
+    ?{
       val y:PartialFunction[Def[_], Rep[_]] = {case x:Def[_] if x.canBeRewritten => doRewrite(x) }
 
       ?{
@@ -106,6 +106,15 @@ object Trick2 extends ArithmeticNodes {
     x.map{
       case "option1" => doSomething()
       case "option2" => doSomethingElse()
+    }
+
+
+    // Kevin's suggestion
+    abstract class AbstractGuy[T] {
+      def +(that: T): T
+    }
+    case class ConcreteGuy(data: Int) extends AbstractGuy[ConcreteGuy] {
+      def +(that: ConcreteGuy): ConcreteGuy = ConcreteGuy(this.data + that.data)
     }
 
   }
